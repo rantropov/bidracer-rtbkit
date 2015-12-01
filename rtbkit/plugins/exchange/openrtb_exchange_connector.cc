@@ -1,6 +1,6 @@
 /* openrtb_exchange_connector.cc
    Eric Robert, 7 May 2013
-   
+
    Implementation of the OpenRTB exchange connector.
 */
 
@@ -136,11 +136,12 @@ parseBidRequest(HttpAuctionHandler & connection,
     }
 
     // Check that it's version 2.1
-    std::string openRtbVersion = it->second;
-    if (openRtbVersion != "2.1" && openRtbVersion != "2.2") {
-        connection.sendErrorResponse("UNSUPPORTED_OPENRTB_VERSION", "The request is required to be using version 2.1 or 2.2 of the OpenRTB protocol but requested " + openRtbVersion);
+    //Swarup - Changes begin
+    if (openRtbVersion != "2.2") {
+        connection.sendErrorResponse("UNSUPPORTED_OPENRTB_VERSION", "The request is required to be using > version 2.2 of the OpenRTB protocol but requested " + openRtbVersion);
         return none;
     }
+    //Swarup - Changes end
 
     if(payload.empty()) {
         this->recordHit("error.emptyBidRequest");
@@ -190,7 +191,7 @@ getTimeAvailableMs(HttpAuctionHandler & connection,
     std::string::size_type pos = payload.find(toFind);
     if (pos == std::string::npos)
         return 30.0;
-    
+
     int tmax = atoi(payload.c_str() + pos + toFind.length());
     return (absoluteTimeMax < tmax) ? absoluteTimeMax : tmax;
 }
@@ -307,4 +308,3 @@ namespace {
         }
     } atInit;
 }
-

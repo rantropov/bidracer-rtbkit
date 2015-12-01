@@ -324,7 +324,7 @@ struct Components
         router1.initFilters();
         router2.addExchange(*exchangeConnectors[1]);
         router2.initFilters();
-        
+
         // Setup an ad server connector that also acts as a midlle men between
         // the exchange's wins and the post auction loop.
         winStream.init(winStreamPort = 12340, eventStreamPort = 12341);
@@ -456,12 +456,8 @@ int main(int argc, char ** argv)
         doCheckBanker("router1", components.router1.getBanker());
         doCheckBanker("router2", components.router2.getBanker());
     }
-
-    cerr << "SHUTDOWN\n";
-    _exit(0);
     // Test is done; clean up time.
     components.shutdown();
-
     components.proxies->events->dump(cerr);
+    exit(0);
 }
-
