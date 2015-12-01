@@ -1,8 +1,8 @@
 /* -*- js-mode -*- */
 [
     {
-        "exchangeType": "mock",
-        "listenPort": 12339,
+        "exchangeType": "rubicon",
+        "listenPort": 10002,
         "bindHost": "0.0.0.0",
         "auctionVerb": "POST",
         "auctionResource": "/auctions",
