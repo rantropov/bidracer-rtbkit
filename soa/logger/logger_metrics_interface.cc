@@ -165,7 +165,7 @@ void ILoggerMetrics::logMetrics(const Json::Value& json){
     failSafeHelper(fct);
 }
 
-void ILoggerMetrics::failSafeHelper(const std::function<void()>& fct){
+void ILoggerMetrics::failSafeHelper(std::function<void()> fct){
     if(failSafe){
         try{
             fct();

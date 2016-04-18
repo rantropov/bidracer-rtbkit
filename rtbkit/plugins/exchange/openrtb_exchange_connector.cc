@@ -17,6 +17,7 @@
 #include "jml/utils/file_functions.h"
 #include "jml/arch/info.h"
 #include "jml/utils/rng.h"
+#include "jml/arch/exception_handler.h" // JML_TRACE_EXCEPTIONS
 
 using namespace Datacratic;
 
@@ -136,13 +137,11 @@ parseBidRequest(HttpAuctionHandler & connection,
     }
 
     // Check that it's version 2.1
-    //Swarup - Changes begin
     std::string openRtbVersion = it->second;
-    if (openRtbVersion != "2.1" && openRtbVersion != "2.2") {
+    if (openRtbVersion != "2.2") {
         connection.sendErrorResponse("UNSUPPORTED_OPENRTB_VERSION", "The request is required to be using version 2.1 or 2.2 of the OpenRTB protocol but requested " + openRtbVersion);
         return none;
     }
-    //Swarup - Changes end
 
     if(payload.empty()) {
         this->recordHit("error.emptyBidRequest");
@@ -153,6 +152,7 @@ parseBidRequest(HttpAuctionHandler & connection,
     // Parse the bid request
     std::shared_ptr<BidRequest> result;
     try {
+        JML_TRACE_EXCEPTIONS(!disableExceptionPrinting);
         ML::Parse_Context context("Bid Request", payload.c_str(), payload.size());
         result.reset(OpenRTBBidRequestParser::openRTBBidRequestParserFactory(openRtbVersion)->parseBidRequest(context,
                                                                                               exchangeName(),
