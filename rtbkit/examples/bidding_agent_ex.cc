@@ -101,7 +101,23 @@ struct FixedPriceBiddingAgent :
         config.creatives.push_back(Creative::sampleWS);
         config.creatives.push_back(Creative::sampleBB);
 
+        config.providerConfig["rubicon"]["seat"] = "123";
 
+      //Swarup Begin
+        // Configure the agent for bidding
+        for (auto & c : config.creatives) {
+            c.providerConfig["rubicon"]["adomain"][0] = "rtbkit.org";
+            c.providerConfig["rubicon"]["adm"]
+                = "<img src=\"http://rtbkit.org/site/sites/all/themes/rtbtheme/logo.png?width="
+                + to_string(c.format.width)
+                + "&height="
+                + to_string(c.format.height)
+                + "&price=${AUCTION_PRICE:BF}\"/>";
+  
+            c.providerConfig["rubicon"]["crid"] = c.name;
+            c.providerConfig["rubicon"]["attr"][0] = 0;
+        }
+        //Swarup End
         // Indicate to the router that we want our bid requests to be augmented
         // with our frequency cap augmentor example.
         {
@@ -235,4 +251,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
