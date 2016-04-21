@@ -106,14 +106,14 @@ struct FixedPriceBiddingAgent :
       //Swarup Begin
         // Configure the agent for bidding
         for (auto & c : config.creatives) {
-            c.providerConfig["rubicon"]["adomain"][0] = "rtbkit.org";
+            c.providerConfig["rubicon"]["adomain"][0] = "example.com";
             c.providerConfig["rubicon"]["adm"]
                 = "<img src=\"http://rtbkit.org/site/sites/all/themes/rtbtheme/logo.png?width="
                 + to_string(c.format.width)
                 + "&height="
                 + to_string(c.format.height)
                 + "&price=${AUCTION_PRICE:BF}\"/>";
-  
+
             c.providerConfig["rubicon"]["crid"] = c.name;
             c.providerConfig["rubicon"]["attr"][0] = 0;
         }

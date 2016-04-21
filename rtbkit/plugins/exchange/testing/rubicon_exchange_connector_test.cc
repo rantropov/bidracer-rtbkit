@@ -54,7 +54,7 @@ using namespace RTBKIT;
     functionality needed for Rubicon's integration test page.
 
     It includes the following extra functionality:
-    * 
+    *
 */
 
 struct TestRubiconExchangeConnector: public RubiconExchangeConnector {
@@ -64,7 +64,7 @@ struct TestRubiconExchangeConnector: public RubiconExchangeConnector {
         : RubiconExchangeConnector(name, proxies)
     {
     }
-    
+
     /** Simple function to return a dynamic creative with the win price
         rendered in it to demonstrate that the win price was correctly
         decoded.
@@ -128,7 +128,7 @@ struct TestRubiconExchangeConnector: public RubiconExchangeConnector {
             cr->line_to(width * 3.0 / 4.0, height * 3.0 / 4.0);
             cr->stroke();
             cr->restore();
-            
+
             Cairo::RefPtr<Cairo::ToyFontFace> font =
                 Cairo::ToyFontFace::create("Bitstream Charter",
                                            Cairo::FONT_SLANT_ITALIC,
@@ -143,7 +143,7 @@ struct TestRubiconExchangeConnector: public RubiconExchangeConnector {
             if (format == "png")
                 surface->write_to_png_stream(writeData);
         }
-        
+
         return HttpResponse(200, contentType, imageData);
     }
 
@@ -161,7 +161,7 @@ struct TestRubiconExchangeConnector: public RubiconExchangeConnector {
             string encodedPrice = header.queryParams.getValue("price");
 
             //cerr << "encodedPrice = " << encodedPrice << endl;
-            
+
             float decodedPrice = decodeWinPrice("hheehhee", encodedPrice);
             auto response = getCreative(width, height, decodedPrice,
                                         header.resource == "/creative.png" ? "png" : "svg");
@@ -187,7 +187,7 @@ struct TestRubiconExchangeConnector: public RubiconExchangeConnector {
             }
 
             string redirLocation = redir + params.uriEscaped();
-            
+
             HttpResponse response(302, "none", "", { {"Location", redirLocation} });
             connection.putResponseOnWire(response);
             return;
@@ -292,8 +292,9 @@ BOOST_AUTO_TEST_CASE( test_rubicon )
 
     std::string filename = "rtbkit/plugins/exchange/testing/rubicon-samples.txt.gz";
 
+    //swarup
     // either delete the file or set this to true to generate a new file
-    bool generate = false;
+    bool generate = true;
 
     if(!boost::filesystem::exists(filename)) {
         generate = true;
