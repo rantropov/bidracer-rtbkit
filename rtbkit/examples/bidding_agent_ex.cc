@@ -108,7 +108,11 @@ struct FixedPriceBiddingAgent :
         for (auto & c : config.creatives) {
             c.providerConfig["rubicon"]["adomain"][0] = "example.com";
             c.providerConfig["rubicon"]["adm"]
-                = "<img src=\"https://s3-us-west-2.amazonaws.com/rtbkit-files/ad_banners/redbird_img_250_250.png\"/>";
+                = "<img src=\"https://s3-us-west-2.amazonaws.com/rtbkit-files/ad_banners/redbird_img_250_250.png?width="
+                + to_string(c.format.width)
+                + "&height="
+                + to_string(c.format.height)
+                + "&price=${AUCTION_PRICE:BF}\"/>";
             c.providerConfig["rubicon"]["crid"] = c.name;
             c.providerConfig["rubicon"]["attr"][0] = 0;
         }
