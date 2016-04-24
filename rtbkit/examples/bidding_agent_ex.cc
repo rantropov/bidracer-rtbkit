@@ -142,7 +142,10 @@ struct FixedPriceBiddingAgent :
 
         // Configures the agent to only receive 10% of the bid request traffic
         // that matches its filters.
+        //Swarup Begin
         config.bidProbability = 0.1;
+        config.bidProbability = 0.8;
+        //Swarup End
 
         // Tell the world about our config. We can change the configuration of
         // an agent at any time by calling this function.
